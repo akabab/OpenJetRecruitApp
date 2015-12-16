@@ -17,6 +17,7 @@ extension AirportTableViewController: UISearchResultsUpdating {
 }
 
 typealias Airport = [String:String]
+
 class AirportTableViewController: UITableViewController {
 
     var searchController: UISearchController!
@@ -35,7 +36,11 @@ class AirportTableViewController: UITableViewController {
         loadSampleAirports()
     }
 
-    func loadSampleAirports () {
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
     func configureSearchController() {
         // Initialize and perform a minimum configuration to the search controller.
         searchController = UISearchController(searchResultsController: nil)
@@ -50,11 +55,14 @@ class AirportTableViewController: UITableViewController {
         tableView.tableHeaderView = searchController.searchBar
     }
 
+    func loadSampleAirports() {
+        // handle cache or fs saved data in case of no network
         if airports.isEmpty {
             fetchAirports()
         }
     }
-    
+
+    // TODO: move to model
     func fetchAirports() {
         Alamofire.request(.GET, "http://middle.openjetlab.fr/api/rests/airport/list").validate().responseJSON {
             response in
@@ -104,6 +112,8 @@ class AirportTableViewController: UITableViewController {
 
         tableView.reloadData()
     }
+
+    // TODO: move to model
     func selectAirport(airport: Airport) {
         let params : [String: AnyObject] = [
             "city": airport["city"]!,
@@ -127,9 +137,6 @@ class AirportTableViewController: UITableViewController {
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     // Handle selection
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -139,7 +146,6 @@ class AirportTableViewController: UITableViewController {
         selectAirport(airport)
     }
 
-    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -161,42 +167,6 @@ class AirportTableViewController: UITableViewController {
         return cell
     }
 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     /*
     // MARK: - Navigation
 
@@ -206,7 +176,8 @@ class AirportTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
+
+    // TODO: load as file
     let airportCountriesRef : [String: [String]] = [
         "AD": [ "EU" , "AD" , "AND" , "20"  , "Andorra, Principality of"                            ],
         "AE": [ "AS" , "AE" , "ARE" , "784" , "United Arab Emirates"                                ],
