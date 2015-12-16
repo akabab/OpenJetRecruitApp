@@ -155,8 +155,8 @@ class AirportTableViewController: UITableViewController {
         // Fetches the appropriate airport for the data source layout.
         let airport = isSearching ? filteredAirports[indexPath.row] : airports[indexPath.row]
         
-        cell.nameLabel.text = airport["name"] ?? ""
-        cell.countryLabel.text = airport["country"] ?? ""
+        cell.nameLabel.text = "\(airport["name"] ?? "") (\(airport["iata"] ?? ""))"
+        cell.countryLabel.text = "\(airport["city"] ?? ""), \(airport["country"] ?? "")"
         
         return cell
     }
