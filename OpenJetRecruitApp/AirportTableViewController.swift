@@ -70,7 +70,7 @@ class AirportTableViewController: UITableViewController {
         
         let airport = airports[indexPath.row]
         
-//        selectAirport(airport)
+        selectAirport(airport)
     }
     
     func selectAirport(airport: Dictionary<String, String>) {
