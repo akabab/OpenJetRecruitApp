@@ -10,16 +10,40 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+extension AirportTableViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+}
+
 typealias Airport = [String:String]
 class AirportTableViewController: UITableViewController {
+
+    var searchController: UISearchController!
+
     var airports = [Airport]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureSearchController()
         loadSampleAirports()
     }
 
     func loadSampleAirports () {
+    func configureSearchController() {
+        // Initialize and perform a minimum configuration to the search controller.
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.sizeToFit()
+
+        // ensure that the search bar does not remain on the screen if the user navigates to another view controller while the UISearchController is active (when presenting alert for exemple) http://asciiwwdc.com/2014/sessions/228
+        self.definesPresentationContext = true
+
+        // Place the search bar view to the tableview headerview.
+        tableView.tableHeaderView = searchController.searchBar
+    }
+
         if airports.isEmpty {
             fetchAirports()
         }
