@@ -12,19 +12,12 @@ import SwiftyJSON
 
 class AirportTableViewController: UITableViewController {
     
-    var airports = [Dictionary<String, String?>]()
+    var airports = [Dictionary<String, String>]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         loadSampleAirports()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
     }
 
     func loadSampleAirports () {
@@ -34,7 +27,8 @@ class AirportTableViewController: UITableViewController {
     }
     
     func fetchAirports() {
-        Alamofire.request(.GET, "http://middle.openjetlab.fr/api/rests/airport/list").validate().responseJSON { response in
+        Alamofire.request(.GET, "http://middle.openjetlab.fr/api/rests/airport/list").validate().responseJSON {
+            response in
             switch response.result {
             case .Success:
                 if let value = response.result.value {
@@ -43,15 +37,15 @@ class AirportTableViewController: UITableViewController {
                     if let jsonArray = json.array {
                         for item in jsonArray {
                             if let itemDictionary = item.dictionary {
-                                var newAirport = [String:String?]()
+                                var newAirport = [String:String]()
                                 for (key, value) in itemDictionary {
                                     newAirport[key] = value.string
                                 }
                                 
                                 // match country
                                 let countryCode = newAirport["countryCode"] ?? ""
-                                newAirport["country"] = self.airportCountriesRef[countryCode!]![4]
-                                newAirport["continentCode"] = self.airportCountriesRef[countryCode!]![0]
+                                newAirport["country"] = self.airportCountriesRef[countryCode]![4]
+                                newAirport["continentCode"] = self.airportCountriesRef[countryCode]![0]
                                 
                                 // Add airport
                                 self.airports += [newAirport]
@@ -85,14 +79,14 @@ class AirportTableViewController: UITableViewController {
             "airport": airport["name"]!,
             "timezone": airport["utcStdConversion"]!
         ]
-        
+
         Alamofire.request(.POST, "http://candidat.openjetlab.fr/", parameters: params).response {
             (request, response, data, error) in
-            
+
             if error != nil {
                 return print(error)
             }
-            
+
             if response != nil && response!.statusCode == 200 {
                 let message = "\(airport["name"]!) Airport selected"
                 let alert = UIAlertController(title: "Mail sent", message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -107,15 +101,12 @@ class AirportTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(airports.count)
         return airports.count
     }
 
