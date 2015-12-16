@@ -10,7 +10,6 @@
 		911D0D801C20AFB900F24DFF /* AirportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0D7F1C20AFB900F24DFF /* AirportTableViewCell.swift */; };
 		911D0D861C20B49E00F24DFF /* AirportTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0D851C20B49E00F24DFF /* AirportTableViewController.swift */; };
 		91AA45A01C203E2700CA241B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA459F1C203E2700CA241B /* AppDelegate.swift */; };
-		91AA45A21C203E2700CA241B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA45A11C203E2700CA241B /* ViewController.swift */; };
 		91AA45A51C203E2700CA241B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91AA45A31C203E2700CA241B /* Main.storyboard */; };
 		91AA45A71C203E2700CA241B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91AA45A61C203E2700CA241B /* Assets.xcassets */; };
 		91AA45AA1C203E2700CA241B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91AA45A81C203E2700CA241B /* LaunchScreen.storyboard */; };
@@ -25,7 +24,6 @@
 		911D0D851C20B49E00F24DFF /* AirportTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirportTableViewController.swift; sourceTree = "<group>"; };
 		91AA459C1C203E2600CA241B /* OpenJetRecruitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenJetRecruitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91AA459F1C203E2700CA241B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		91AA45A11C203E2700CA241B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		91AA45A41C203E2700CA241B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		91AA45A61C203E2700CA241B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91AA45A91C203E2700CA241B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -69,7 +67,6 @@
 			children = (
 				911D0D851C20B49E00F24DFF /* AirportTableViewController.swift */,
 				91AA459F1C203E2700CA241B /* AppDelegate.swift */,
-				91AA45A11C203E2700CA241B /* ViewController.swift */,
 				91AA45B11C203EB900CA241B /* HTTP.swift */,
 				91AA45A31C203E2700CA241B /* Main.storyboard */,
 				91AA45A61C203E2700CA241B /* Assets.xcassets */,
@@ -221,7 +218,6 @@
 			files = (
 				91AA45B21C203EB900CA241B /* HTTP.swift in Sources */,
 				911D0D801C20AFB900F24DFF /* AirportTableViewCell.swift in Sources */,
-				91AA45A21C203E2700CA241B /* ViewController.swift in Sources */,
 				91AA45A01C203E2700CA241B /* AppDelegate.swift in Sources */,
 				911D0D861C20B49E00F24DFF /* AirportTableViewController.swift in Sources */,
 			);
