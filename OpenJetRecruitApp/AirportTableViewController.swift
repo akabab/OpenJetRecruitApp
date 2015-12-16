@@ -22,6 +22,12 @@ class AirportTableViewController: UITableViewController {
     var searchController: UISearchController!
 
     var airports = [Airport]()
+    var filteredAirports = [Airport]()
+
+    var isSearching : Bool {
+        return searchController.active && searchController.searchBar.text != ""
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -86,14 +92,17 @@ class AirportTableViewController: UITableViewController {
             }
         }
     }
-    
-    // Handle selection
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        let airport = airports[indexPath.row]
-        
-        selectAirport(airport)
+
+    // Searching
+    func filterContentForSearchText(searchText: String) {
+        filteredAirports = airports.filter { airport in
+            let name = airport["name"]!.lowercaseString
+            let iata = airport["iata"]!.lowercaseString
+
+            return name.containsString(searchText.lowercaseString) || iata.containsString(searchText.lowercaseString)
+        }
+
+        tableView.reloadData()
     }
     func selectAirport(airport: Airport) {
         let params : [String: AnyObject] = [
@@ -121,6 +130,13 @@ class AirportTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    // Handle selection
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+        let airport = isSearching ? filteredAirports[indexPath.row] : airports[indexPath.row]
+
+        selectAirport(airport)
     }
 
     
@@ -129,7 +145,7 @@ class AirportTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return airports.count
+        return isSearching ? filteredAirports.count : airports.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -137,7 +153,7 @@ class AirportTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! AirportTableViewCell
         
         // Fetches the appropriate airport for the data source layout.
-        let airport = airports[indexPath.row]
+        let airport = isSearching ? filteredAirports[indexPath.row] : airports[indexPath.row]
         
         cell.nameLabel.text = airport["name"] ?? ""
         cell.countryLabel.text = airport["country"] ?? ""
