@@ -10,10 +10,9 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+typealias Airport = [String:String]
 class AirportTableViewController: UITableViewController {
-    
-    var airports = [Dictionary<String, String>]()
-    
+    var airports = [Airport]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,7 +36,7 @@ class AirportTableViewController: UITableViewController {
                     if let jsonArray = json.array {
                         for item in jsonArray {
                             if let itemDictionary = item.dictionary {
-                                var newAirport = [String:String]()
+                                var newAirport = Airport()
                                 for (key, value) in itemDictionary {
                                     newAirport[key] = value.string
                                 }
@@ -72,8 +71,7 @@ class AirportTableViewController: UITableViewController {
         
         selectAirport(airport)
     }
-    
-    func selectAirport(airport: Dictionary<String, String>) {
+    func selectAirport(airport: Airport) {
         let params : [String: AnyObject] = [
             "city": airport["city"]!,
             "airport": airport["name"]!,
