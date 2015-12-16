@@ -69,6 +69,38 @@ class AirportTableViewController: UITableViewController {
             }
         }
     }
+    
+    // Handle selection
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let airport = airports[indexPath.row]
+        
+//        selectAirport(airport)
+    }
+    
+    func selectAirport(airport: Dictionary<String, String>) {
+        let params : [String: AnyObject] = [
+            "city": airport["city"]!,
+            "airport": airport["name"]!,
+            "timezone": airport["utcStdConversion"]!
+        ]
+        
+        Alamofire.request(.POST, "http://candidat.openjetlab.fr/", parameters: params).response {
+            (request, response, data, error) in
+            
+            if error != nil {
+                return print(error)
+            }
+            
+            if response != nil && response!.statusCode == 200 {
+                let message = "\(airport["name"]!) Airport selected"
+                let alert = UIAlertController(title: "Mail sent", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Cool", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
