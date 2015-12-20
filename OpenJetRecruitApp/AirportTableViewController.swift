@@ -22,10 +22,14 @@ class AirportTableViewController: UITableViewController {
 
     let dataModel = AirportDataModel()
     let countryRef = CountryRef()
+
     var searchController: UISearchController!
 
     var airports = [Airport]()
     var filteredAirports = [Airport]()
+
+    var sections = [String]()
+    var items = [[Airport]]()
 
     var isSearching : Bool {
         return searchController.active && searchController.searchBar.text != ""
@@ -82,22 +86,33 @@ class AirportTableViewController: UITableViewController {
         }
     }
 
+    func createSections() {
+
+        let tmp = airports.map { airport in
+            return "\(airport["continent"]!) - \(airport["country"]!)"
+        }
+
+        // Distinct Values
+        sections = Array(Set(tmp)).sort()
+
+        items = [[Airport]](count: sections.count, repeatedValue: [])
+        for airport in airports {
+            let sectionIndex = sections.indexOf("\(airport["continent"]!) - \(airport["country"]!)")
+            if let index = sectionIndex {
+                items[index] += [airport]
+            }
+        }
+    }
+
     // Searching
     func filterContentForSearchText(searchText: String) {
         filteredAirports = airports.filter { airport in
-            let name = airport["name"]!.lowercaseString
-            let iata = airport["iata"]!.lowercaseString
+            let matchString = "\(airport["continent"]!) \(airport["country"]!) \(airport["city"]!) \(airport["name"]!) \(airport["iata"]!)".lowercaseString
 
-            return name.containsString(searchText.lowercaseString) || iata.containsString(searchText.lowercaseString)
+            return matchString.containsString(searchText.lowercaseString)
         }
 
         tableView.reloadData()
-    }
-
-
-            }
-
-        }
     }
 
     // Handle selection
@@ -117,19 +132,22 @@ class AirportTableViewController: UITableViewController {
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return isSearching ? 1 : sections.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isSearching ? filteredAirports.count : airports.count
+        return isSearching ? filteredAirports.count : items[section].count
+    }
+
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return isSearching ? "\(filteredAirports.count) Result\(filteredAirports.count != 1 ? "s" : "")" : sections[section]
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "AirportTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! AirportTableViewCell
-        
         // Fetches the appropriate airport for the data source layout.
-        let airport = isSearching ? filteredAirports[indexPath.row] : airports[indexPath.row]
+        let airport = isSearching ? filteredAirports[indexPath.row] : items[indexPath.section][indexPath.row]
         
         cell.nameLabel.text = "\(airport["name"] ?? "") (\(airport["iata"] ?? ""))"
         cell.countryLabel.text = "\(airport["city"] ?? ""), \(airport["country"] ?? "")"
