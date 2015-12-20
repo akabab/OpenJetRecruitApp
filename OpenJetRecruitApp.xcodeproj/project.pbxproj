@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		911D0D801C20AFB900F24DFF /* AirportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0D7F1C20AFB900F24DFF /* AirportTableViewCell.swift */; };
 		911D0D861C20B49E00F24DFF /* AirportTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D0D851C20B49E00F24DFF /* AirportTableViewController.swift */; };
+		91246DA41C21BBFE0099A294 /* AirportDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91246DA31C21BBFE0099A294 /* AirportDataModel.swift */; };
+		91921D3F1C2436AE00B8DD7C /* CountryRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91921D3E1C2436AE00B8DD7C /* CountryRef.swift */; };
 		91AA45A01C203E2700CA241B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA459F1C203E2700CA241B /* AppDelegate.swift */; };
 		91AA45A51C203E2700CA241B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91AA45A31C203E2700CA241B /* Main.storyboard */; };
 		91AA45A71C203E2700CA241B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91AA45A61C203E2700CA241B /* Assets.xcassets */; };
@@ -22,6 +24,8 @@
 		81F76FF861DA4E6A0BA5FD86 /* Pods-OpenJetRecruitApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenJetRecruitApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenJetRecruitApp/Pods-OpenJetRecruitApp.release.xcconfig"; sourceTree = "<group>"; };
 		911D0D7F1C20AFB900F24DFF /* AirportTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirportTableViewCell.swift; sourceTree = "<group>"; };
 		911D0D851C20B49E00F24DFF /* AirportTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirportTableViewController.swift; sourceTree = "<group>"; };
+		91246DA31C21BBFE0099A294 /* AirportDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirportDataModel.swift; sourceTree = "<group>"; };
+		91921D3E1C2436AE00B8DD7C /* CountryRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryRef.swift; sourceTree = "<group>"; };
 		91AA459C1C203E2600CA241B /* OpenJetRecruitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenJetRecruitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91AA459F1C203E2700CA241B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91AA45A41C203E2700CA241B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -73,6 +77,8 @@
 				91AA45A81C203E2700CA241B /* LaunchScreen.storyboard */,
 				91AA45AB1C203E2700CA241B /* Info.plist */,
 				911D0D7F1C20AFB900F24DFF /* AirportTableViewCell.swift */,
+				91246DA31C21BBFE0099A294 /* AirportDataModel.swift */,
+				91921D3E1C2436AE00B8DD7C /* CountryRef.swift */,
 			);
 			path = OpenJetRecruitApp;
 			sourceTree = "<group>";
@@ -220,6 +226,8 @@
 				911D0D801C20AFB900F24DFF /* AirportTableViewCell.swift in Sources */,
 				91AA45A01C203E2700CA241B /* AppDelegate.swift in Sources */,
 				911D0D861C20B49E00F24DFF /* AirportTableViewController.swift in Sources */,
+				91921D3F1C2436AE00B8DD7C /* CountryRef.swift in Sources */,
+				91246DA41C21BBFE0099A294 /* AirportDataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
