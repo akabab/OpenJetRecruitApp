@@ -42,23 +42,23 @@ class AirportTableViewController: UITableViewController {
         loadSampleAirports()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     func configureSearchController() {
         // Initialize and perform a minimum configuration to the search controller.
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.sizeToFit()
+
+        let searchBar = searchController.searchBar
+        searchBar.sizeToFit()
+        searchBar.barTintColor = UIColor(red:0.58, green:0.74, blue:0.96, alpha:1.0)
+        searchBar.layer.borderWidth = 1
+        searchBar.layer.borderColor = UIColor(red:0.58, green:0.74, blue:0.96, alpha:1.0).CGColor
 
         // ensure that the search bar does not remain on the screen if the user navigates to another view controller while the UISearchController is active (when presenting alert for exemple) http://asciiwwdc.com/2014/sessions/228
         self.definesPresentationContext = true
 
         // Place the search bar view to the tableview headerview.
-        tableView.tableHeaderView = searchController.searchBar
+        tableView.tableHeaderView = searchBar
     }
 
     func alert(title: String, message: String, style: UIAlertControllerStyle) {
@@ -143,9 +143,16 @@ class AirportTableViewController: UITableViewController {
         return isSearching ? "\(filteredAirports.count) Result\(filteredAirports.count != 1 ? "s" : "")" : sections[section]
     }
 
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = UIColor(red:0.58, green:0.74, blue:0.96, alpha:1.0)
+        header.textLabel!.textColor = UIColor.whiteColor()
+    }
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "AirportTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! AirportTableViewCell
+
         // Fetches the appropriate airport for the data source layout.
         let airport = isSearching ? filteredAirports[indexPath.row] : items[indexPath.section][indexPath.row]
         
@@ -154,15 +161,4 @@ class AirportTableViewController: UITableViewController {
         
         return cell
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
